@@ -58,11 +58,11 @@ EOF
 }
 
 run_bootstrap_prechecks() {
-        ${SALT_CALL} --local state.apply bootstrap.prechecks
+        ${SALT_CALL} --local --retcode-passthrough state.apply bootstrap.prechecks
 }
 
 install_kubelet() {
-        ${SALT_CALL} --local state.apply kubernetes.kubelet
+        ${SALT_CALL} --local --retcode-passthrough state.apply kubernetes.kubelet
 }
 
 main() {

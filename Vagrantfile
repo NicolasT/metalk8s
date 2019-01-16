@@ -10,9 +10,7 @@ Vagrant.configure("2") do |config|
     bootstrap.vm.box = "centos/7"
     bootstrap.vm.box_version = "1811.02"
 
-    bootstrap.vm.synced_folder "salt/", "/srv/salt",
-      owner: "root",
-      group: "root"
+    bootstrap.vm.synced_folder "salt/", "/srv/salt"
 
     bootstrap.vm.provision "fake-unpack",
       type: "shell",

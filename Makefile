@@ -55,7 +55,7 @@ BUILT_IMAGES = $(ETCD_IMAGE_FILE) \
 
 BUILT_PACKAGES =
 
-SKOPEO = $(shell command -v skopeo)
+DOCKER = $(shell command -v docker)
 
 default: all
 
@@ -66,22 +66,28 @@ $(OUTPUT_IMAGES):
 	@mkdir -p $@
 
 $(ETCD_IMAGE_FILE):
-	$(SKOPEO) copy docker://$(ETCD_IMAGE) docker-archive://$(PWD)/$@ || rm -f $@
+	$(DOCKER) pull $(ETCD_IMAGE)
+	$(DOCKER) save -o $@ $(ETCD_IMAGE) || rm -f $@
 
 $(KUBE_APISERVER_IMAGE_FILE):
-	$(SKOPEO) copy docker://$(KUBE_APISERVER_IMAGE) docker-archive://$(PWD)/$@ || rm -f $@
+	$(DOCKER) pull $(KUBE_APISERVER_IMAGE)
+	$(DOCKER) save -o $@ $(KUBE_APISERVER_IMAGE) || rm -f $@
 
 $(KUBE_CONTROLLER_MANAGER_IMAGE_FILE):
-	$(SKOPEO) copy docker://$(KUBE_CONTROLLER_MANAGER_IMAGE) docker-archive://$(PWD)/$@ || rm -f $@
+	$(DOCKER) pull $(KUBE_CONTROLLER_MANAGER_IMAGE)
+	$(DOCKER) save -o $@ $(KUBE_CONTROLLER_MANAGER_IMAGE) || rm -f $@
 
 $(KUBE_SCHEDULER_IMAGE_FILE):
-	$(SKOPEO) copy docker://$(KUBE_SCHEDULER_IMAGE) docker-archive://$(PWD)/$@ || rm -f $@
+	$(DOCKER) pull $(KUBE_SCHEDULER_IMAGE)
+	$(DOCKER) save -o $@ $(KUBE_SCHEDULER_IMAGE) || rm -f $@
 
 $(KUBE_PROXY_IMAGE_FILE):
-	$(SKOPEO) copy docker://$(KUBE_PROXY_IMAGE) docker-archive://$(PWD)/$@ || rm -f $@
+	$(DOCKER) pull $(KUBE_PROXY_IMAGE)
+	$(DOCKER) save -o $@ $(KUBE_PROXY_IMAGE) || rm -f $@
 
 $(PAUSE_IMAGE_FILE):
-	$(SKOPEO) copy docker://$(PAUSE_IMAGE) docker-archive://$(PWD)/$@ || rm -f $@
+	$(DOCKER) pull $(PAUSE_IMAGE)
+	$(DOCKER) save -o $@ $(PAUSE_IMAGE) || rm -f $@
 
 packages: $(PACKAGES)
 .PHONY: packages
