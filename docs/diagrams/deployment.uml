@@ -36,6 +36,10 @@ bootstrap -> bootstrap : Enable and start kubelet
 bootstrap --> installer : Done
 end
 
+group Set up Kubernetes control plane HA/failover
+note over bootstrap: TODO
+end
+
 group Set up salt-master
 installer -> bootstrap : Deploy salt-master using salt-call --local
 bootstrap -> bootstrap : Create salt-master static pod manifest
